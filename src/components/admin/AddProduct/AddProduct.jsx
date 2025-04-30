@@ -1,17 +1,13 @@
-"use client";
-import { fetchOneProduct, handleUpdateProduct } from "@/utils/apiUtils/ProductUtil";
-import { useEffect, useState } from "react";
-import { fetchCategories } from "@/utils/apiUtils/CategoryUtil";
-import { useRouter } from "next/navigation";
-import Link from "next/link";
-import Image from "next/image";
+"use client"
 import styles from "./style.module.css";
-
-const UpdateProduct = ({ id }) => {
+import { useState, useEffect } from "react";
+import { addProduct } from "@/utils/apiUtils/ProductUtil"; 
+import { fetchCategories } from "@/utils/apiUtils/CategoryUtil";
+import Link from "next/link";
+const AddProduct = () => {
     const [categories, setCategories] = useState([]);
     const [loading, setLoading] = useState(true);
     const [form, setForm] = useState({
-        _id: "",
         name: "",
         categoryId: "",
         price: "",
@@ -20,76 +16,62 @@ const UpdateProduct = ({ id }) => {
         stockAmount: ""
     });
 
-    const router = useRouter();
+    const [message, setMessage] = useState("");
+
 
     useEffect(() => {
         const getData = async () => {
             const data = await fetchCategories();
-            setCategories(data);
+            setCategories(data)
+            setLoading(false)
+
+
         };
         getData();
+
+
     }, []);
-
-    useEffect(() => {
-        const fetchProduct = async () => {
-            const data = await fetchOneProduct(id);
-            setForm({
-                _id: data._id || "",
-                name: data.name || "",
-                categoryId: data.categoryId || "",
-                price: data.price || "",
-                image: data.image || "",
-                description: data.description || "",
-                stockAmount: data.stockAmount || ""
-            });
-            setLoading(false);
-        };
-
-        if (id) fetchProduct();
-    }, [id]);
 
     const handleChange = (e) => {
         const { name, value } = e.target;
-        setForm((prev) => ({ ...prev, [name]: value }));
+        setForm((prev) => ({
+            ...prev,
+            [name]: value,
+        }));
     };
+
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-        const res = await handleUpdateProduct(
-            form._id,
-            form.name,
-            form.categoryId,
-            form.price,
-            form.image,
-            form.description,
-            form.stockAmount
-        );
+
+        const res = await addProduct({
+            ...form,
+            price: parseFloat(form.price),
+            stockAmount: parseInt(form.stockAmount),
+        });
 
         if (res.ok) {
-            alert("Ürün güncellendi.");
-            router.push("/admin/products");
+            setMessage("Ürün başarıyla eklendi.");
+            setForm({
+                name: "",
+                categoryId: "",
+                price: "",
+                image: "",
+                description: "",
+                stockAmount: ""
+            });
         } else {
-            alert("Ürün güncellenemedi.");
+            setMessage("Ürün eklenirken bir hata oluştu.");
         }
     };
 
-    if (loading) return <p>Loading...</p>;
-
+    if (loading) {
+        return <p>Loading...</p>
+    }
     return (
         <div className={styles.container}>
-            <Link href="/admin/products" className={styles.backLink}>
-                Ürünlere dön
-            </Link>
-            <h2 className={styles.title}>Ürün Güncelle</h2>
-            {form.image && (
-                <Image
-                    src={form.image}
-                    width={120}
-                    height={120}
-                    alt="Ürün görseli"
-                    className={styles.imagePreview}
-                />
-            )}
+            <Link href="/admin/products" className={styles.backLink}>Ürünlere dön</Link>
+            <h2 className={styles.title}>Ürün Ekle</h2>
             <form onSubmit={handleSubmit} className={styles.form}>
                 <input
                     type="text"
@@ -97,15 +79,15 @@ const UpdateProduct = ({ id }) => {
                     placeholder="Ürün Adı"
                     value={form.name}
                     onChange={handleChange}
-                    className={styles.input}
                     required
+                    className={styles.input}
                 />
                 <select
                     name="categoryId"
                     value={form.categoryId}
                     onChange={handleChange}
-                    className={styles.select}
                     required
+                    className={styles.select}
                 >
                     <option value="">Kategori Seçin</option>
                     {categories.map((c) => (
@@ -120,8 +102,8 @@ const UpdateProduct = ({ id }) => {
                     placeholder="Fiyat"
                     value={form.price}
                     onChange={handleChange}
-                    className={styles.input}
                     required
+                    className={styles.input}
                 />
                 <input
                     type="text"
@@ -144,15 +126,14 @@ const UpdateProduct = ({ id }) => {
                     placeholder="Stok Miktarı"
                     value={form.stockAmount}
                     onChange={handleChange}
-                    className={styles.input}
                     required
+                    className={styles.input}
                 />
-                <button type="submit" className={styles.button}>
-                    Güncelle
-                </button>
+                <button type="submit" className={styles.button}>Ekle</button>
             </form>
+            {message && <p className={styles.message}>{message}</p>}
         </div>
     );
 };
 
-export default UpdateProduct;
+export default AddProduct;
