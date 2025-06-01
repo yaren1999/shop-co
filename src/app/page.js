@@ -3,6 +3,7 @@ import styles from "./page.module.css";
 import Promotion from "@/components/user/Promotion/Promotion";
 import Brands from "@/components/user/Brands/Brands";
 import Header from "@/components/user/Header/Header";
+import HomeProducts from "@/components/user/HomeProducts/HomeProducts";
 
 export default function Home() {
   return (
@@ -10,6 +11,7 @@ export default function Home() {
     <Header/>
     <Promotion/>
     <Brands/>
+    <HomeProducts/>
    </div>
   );
 }

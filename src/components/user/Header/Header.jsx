@@ -28,12 +28,12 @@ const Header = ({ products = [] }) => {
 
   return (
     <nav className={styles.navbar}>
-      {/* Logo */}
+   
       <div className={styles.logo} onClick={() => router.push("/")}>
         <Image src="/logo.svg" width={80} height={30} alt="Logo" />
       </div>
 
-      {/* Arama kutusu */}
+
       <div className={styles.searchBox}>
         <input
           type="text"
@@ -63,7 +63,7 @@ const Header = ({ products = [] }) => {
         )}
       </div>
 
-      {/* Menü */}
+    
       <ul className={styles.menu}>
         <li className={styles.menuItem}>
           <Link href="/products" className={styles.link}>
@@ -87,10 +87,12 @@ const Header = ({ products = [] }) => {
         </li>
       </ul>
 
-      {/* İkonlar */}
+   
       <div className={styles.icons}>
         <MdFavorite />
-        <MdShoppingCart />
+        <Link href="/cart">
+          <MdShoppingCart style={{ cursor: "pointer" }} />
+        </Link>
         <FaUser />
       </div>
     </nav>
