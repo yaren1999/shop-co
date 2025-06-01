@@ -11,6 +11,20 @@ const CartPage = () => {
     }
   }, []);
 
+  // Sepeti tamamen temizleme
+  const clearCart = () => {
+    localStorage.removeItem("cart");
+    setCartItems([]);
+  };
+
+  // Tek bir ürünü silme
+  const removeItem = (index) => {
+    const updatedCart = [...cartItems];
+    updatedCart.splice(index, 1);
+    localStorage.setItem("cart", JSON.stringify(updatedCart));
+    setCartItems(updatedCart);
+  };
+
   if (cartItems.length === 0) {
     return <p>Sepetin boş 😢</p>;
   }
@@ -19,11 +33,8 @@ const CartPage = () => {
     <div>
       <h2>Sepetiniz</h2>
 
-       <button
-        onClick={() => {
-          localStorage.removeItem("cart");
-          setCartItems([]);
-        }}
+      <button
+        onClick={clearCart}
         style={{
           backgroundColor: "crimson",
           color: "white",
@@ -36,11 +47,28 @@ const CartPage = () => {
       >
         Sepeti Temizle 🗑️
       </button>
+
       <ul>
-          {cartItems.map((item) => (
-          <li key={item.cartItemId}>
+        {cartItems.map((item, index) => (
+          <li key={index} style={{ marginBottom: "10px" }}>
             <img src={item.image} alt={item.name} width={50} height={50} />
-            <span>{item.name}</span> - <strong>{item.price} TL</strong>
+            <span style={{ marginLeft: "10px" }}>{item.name}</span> -{" "}
+            <strong>{item.price} TL</strong>
+
+            <button
+              onClick={() => removeItem(index)}
+              style={{
+                marginLeft: "10px",
+                background: "darkred",
+                color: "white",
+                border: "none",
+                padding: "4px 8px",
+                cursor: "pointer",
+                borderRadius: "4px",
+              }}
+            >
+              Sil 🗑️
+            </button>
           </li>
         ))}
       </ul>
@@ -49,3 +77,4 @@ const CartPage = () => {
 };
 
 export default CartPage;
+

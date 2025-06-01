@@ -4,6 +4,8 @@ import Promotion from "@/components/user/Promotion/Promotion";
 import Brands from "@/components/user/Brands/Brands";
 import Header from "@/components/user/Header/Header";
 import HomeProducts from "@/components/user/HomeProducts/HomeProducts";
+import BestSellerProducts from "@/components/user/BestSellerProducts/BestSellerProducts";
+import HappyCustomers from "@/components/user/HappyCustomers/HappyCustomers";
 
 export default function Home() {
   return (
@@ -12,6 +14,8 @@ export default function Home() {
     <Promotion/>
     <Brands/>
     <HomeProducts/>
+    <BestSellerProducts/> 
+    <HappyCustomers/>
    </div>
   );
 }
