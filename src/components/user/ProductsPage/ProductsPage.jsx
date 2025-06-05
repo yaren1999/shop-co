@@ -81,9 +81,85 @@ const ProductsPage = () => {
         </div>
       </div>
 
-      <div className={styles.rightSide}>
-       
+     
+            <div className={styles.customerReviews}>
+  <h2 className={styles.reviewTitle}>Kullanıcı Yorumları</h2>
+  <div className={styles.reviewList}>
+    {[
+      {
+        stars: 5,
+        name: "A. K.",
+        comment: "Ürün çok kaliteli, hızlı kargo ile elime ulaştı.",
+      },
+      {
+        stars: 4,
+        name: "B. D.",
+        comment: "Genel olarak memnunum ama paketleme geliştirilebilir.",
+      },
+      {
+        stars: 5,
+        name: "C. M.",
+        comment: "Beklentimi aştı, teşekkür ederim 💖",
+      },
+      {
+        stars: 4,
+        name: "D. N.",
+        comment: "Fiyat-performans ürünü, tavsiye ederim.",
+      },
+      {
+        stars: 5,
+        name: "E. T.",
+        comment: "Tek kelimeyle mükemmel. Hızlı teslimat 👌",
+      },
+      {
+        stars: 4,
+        name: "F. Y.",
+        comment: "Ürün güzel ama kargo 1 gün gecikti.",
+      },
+      {
+        stars: 5,
+        name: "Y. M.",
+        comment: "Tek kelimeyle mükemmel. Hızlı teslimat 👌",
+      },
+      {
+        stars: 4,
+        name: "B. T.",
+        comment: "Ürün güzel ama kargo 1 gün gecikti.",
+      }
+    ].map((review, index) => (
+      <div className={styles.reviewCard} key={index}>
+          <div className={styles.reviewStars}>
+            {[...Array(5)].map((_, i) => (
+              <span key={i} style={{ color: i < review.stars ? "#f5c518" : "#ddd" }}>★</span>
+            ))}
+          </div>
+          <div className={styles.reviewName}>
+            {review.name} <span className={styles.verified}>✔</span>
+          </div>
+          <p className={styles.reviewComment}>"{review.comment}"</p>
+        </div>
+    ))}
+       </div>
+    </div>
+
+    <div className={styles.youMightLike}>
+        <h2 className={styles.sectionTitle}>You might like ✨</h2>
+        <div className={styles.productList}>
+          {products.slice(0, 4).map((product) => (
+            <div key={product._id} className={styles.card}>
+              <img
+                src={product.image}
+                alt={product.productName}
+                className={styles.productImage}
+              />
+              <h3>{product.productName}</h3>
+              <p>{product.description}</p>
+              <p><strong>Fiyat:</strong> {product.price} ₺</p>
+            </div>
+          ))}
+        </div>
       </div>
+
     </div>
   );
 };

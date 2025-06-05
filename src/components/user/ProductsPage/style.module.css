@@ -1,16 +1,12 @@
 .container {
   display: flex;
-  justify-content: flex-start;
+  flex-direction: column; 
   margin: 0 20px;
+   
 }
 
 .leftSide {
-  width: 50%;
-  padding: 20px;
-}
-
-.rightSide {
-  width: 50%;
+  width: 100%; 
   padding: 20px;
 }
 
@@ -26,17 +22,23 @@
 }
 
 .card {
-  border: 1px solid black;
+  border: 1px solid #ccc;
   padding: 10px;
-  width: calc(33.33% - 20px);
-  box-sizing: border-box;
+  width: calc(25% - 20px); 
   margin-bottom: 20px;
   background-color: #fff;
+  border-radius: 8px;
+  transition: transform 0.2s ease;
 }
+
+.card:hover {
+  transform: scale(1.02); 
+}
+
 
 .productImage {
   width: 100%;
-  height: 150px;
+  height: 120px;
   object-fit: cover;
   border-radius: 4px;
 }
@@ -72,3 +74,110 @@
   font-weight: bold;
 }
 
+
+
+.customerReviews {
+  margin-top: 60px;
+  padding: 20px 0;
+  border-top: 1px solid #eee;
+}
+
+.reviewTitle {
+  font-size: 24px;
+  margin-bottom: 20px;
+  font-weight: 600;
+  text-align: center;
+}
+
+.reviewList {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+  justify-content: center;
+}
+
+.reviewCard {
+  flex: 1 1 300px;
+  max-width: 300px;
+  border: 1px solid #ddd;
+  border-radius: 10px;
+  padding: 16px;
+  background-color: #fafafa;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+}
+
+.reviewStars {
+  color: #f5c518;
+  font-size: 18px;
+  margin-bottom: 6px;
+}
+
+.reviewName {
+  font-weight: bold;
+  font-size: 14px;
+  margin-bottom: 8px;
+}
+
+.verified {
+  color: green;
+  margin-left: 4px;
+}
+
+.reviewComment {
+  font-size: 14px;
+  color: #444;
+  font-style: italic;
+}
+
+
+@media (max-width: 768px) {
+  .reviewList {
+    justify-content: center;
+  }
+
+  .reviewCard {
+    flex: 1 1 45%; 
+    max-width: 45%;
+  }
+}
+
+
+@media (max-width: 480px) {
+  .reviewList {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .reviewCard {
+    flex: 1 1 100%;
+    max-width: 100%;
+  }
+
+  .reviewTitle {
+    font-size: 20px;
+  }
+
+  .reviewComment {
+    font-size: 13px;
+  }
+}
+
+
+.youMightLike {
+  margin-top: 60px;
+  padding: 20px 0;
+  border-top: 1px solid #eee;
+   background-color: #f0f3ff; 
+  color: #003366; 
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(0, 51, 102, 0.15);
+}
+
+.sectionTitle {
+  font-size: 24px;
+  text-align: center;
+  margin-bottom: 30px;
+  font-weight: 700;
+  letter-spacing: 1.2px;
+  color: #002244; 
+}

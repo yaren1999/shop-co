@@ -34,6 +34,7 @@ const reviews = [
     name: "E. T.",
     comment: "Kaliteyi gerçekten hissediyorsunuz, bayıldım!",
   },
+  
 ];
 
 const HappyCustomers = () => {
